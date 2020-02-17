@@ -1,0 +1,61 @@
+# 실제 쿼리를 작성할때 호출하는 ... 이름들?
+
+type Jaeeun {
+  name: String!
+  age: Int!
+  sex: String
+}
+
+type Person {
+  id: Int!
+  name: String!
+  age: Int!
+  sex: String!
+}
+
+# ======
+
+type Movie {
+  id: Int!
+  name: String!
+  score: Int!
+}
+
+type APIMovie {
+  id: Int!
+  title: String!
+  rating: Float!
+  summary: String!
+  language: String!
+  medium_cover_image: String!
+}
+
+type Query {
+  name: String!
+  # name: string & required
+  jaeeun: Jaeeun!
+
+  people: [Person]!
+  # Person이 여러개일 수 있음= Arr
+
+  person(id: Int!): Person
+  # id가 Int인 person을 찾아 반환해라.
+  # Person을 찾을 수 없을 수도 있으므로 ! 제거
+
+  movies: [Movie]
+  movie(id: Int!): Movie
+
+  # API Movie리스트
+  # apimovies: [APIMovie] # => param 없이 간단하게 return
+  apimovies(limit: Int, rating: Float): [APIMovie]
+
+  # query{ apimovies { ... } } -> 이런식으로 쿼리 작성
+}
+
+# Mutation
+
+type Mutation {
+  # 자동으로 id 생성해줌
+  addMovie(name: String!, score: Int!): Movie!
+  deleteMovie(id: Int!): Boolean!
+}
